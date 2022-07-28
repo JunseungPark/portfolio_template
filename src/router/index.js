@@ -2,14 +2,13 @@ import { createRouter, createWebHistory } from "vue-router";
 // modules
 
 import moduleBase from '@/modules/base/router'
-import BaseLayout from '@/modules/base/Index.vue'
+import MasterLayout from '@/template/MasterLayout.vue'
  
 const routes = [
   {
     path: '/',
     redirect: 'example',
-    component: BaseLayout,
-     
+    component: MasterLayout,
     children: [
       ...moduleBase,
     ],

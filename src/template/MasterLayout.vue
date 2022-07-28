@@ -1,11 +1,12 @@
 <template>
-  <div>기본 템플레이트 입니다.1</div>
+  <h1>Home Page</h1>
+  <router-view></router-view>
 </template>
 
 <script>
 
 export default {
-  name: "Master",
+  name: "MasterLayout",
   data() {
     return {
     }

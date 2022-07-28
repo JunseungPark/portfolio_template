@@ -1,5 +1,5 @@
 <template>
-  <div>기본 템플레이트 입니다1</div>
+  <h1>LayOut Edit</h1>
   <router-view></router-view>
 </template>
 
