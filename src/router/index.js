@@ -7,8 +7,9 @@ import MasterLayout from '@/template/MasterLayout.vue'
 const routes = [
   {
     path: '/',
-    redirect: 'example',
+    redirect: 'base',
     component: MasterLayout,
+
     children: [
       ...moduleBase,
     ],

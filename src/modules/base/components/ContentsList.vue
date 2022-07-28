@@ -2,25 +2,20 @@
 <b-card>
   <b-card no-body class="overflow-hidden">
     <b-row class="g-0">
-      <b-col>
-        <b-list-group>
+      <b-col class="h-auto">
+        <b-list-group  class="h-100">
             <draggable 
-              :list="newLayouts" 
-              group="people"
-              :clone="clone"
-              item-key="id"
+              :list="itemLayouts" 
+              group="people" 
+              itemKey="name"
               :component-data="{
                 tag: 'ul',
                 type: 'transition-group',
                 name: !drag ? 'flip-list' : null
               }"
-              style="min-height: 100vh"
               v-bind="dragOptions">
               <template #item="{element}">
-                <b-list-group-item class="border-0" v-if="(element.name == 'TestLayout')"><TestLayout/></b-list-group-item>
-                <b-list-group-item class="border-0" v-else-if="(element.name == 'TestHeader')"><TestHeader/></b-list-group-item>
-                <b-list-group-item class="border-0" v-else-if="(element.name == 'TestFooter')"><TestFooter/></b-list-group-item>
-                <b-list-group-item class="border-0" v-else>{{element.name}} </b-list-group-item>
+                <b-list-group-item >{{element.name}} </b-list-group-item>
               </template>
             </draggable>
         </b-list-group>
@@ -32,24 +27,18 @@
 
 <script>
 import draggable from 'vuedraggable'
-import TestLayout from '@/modules/base/components/Layouts/TestLayout.vue'
-import TestHeader from '@/modules/base/components/Headers/TestHeader.vue'
-import TestFooter from '@/modules/base/components/Footers/TestFooter.vue'
 
 export default {
-  name: "NewLayout",
+  name: "ContentsList",
   components: {
-        draggable,
-        TestLayout,
-        TestFooter,
-        TestHeader
+    draggable
   },
   props: {
-    newLayouts: {
+    itemLayouts: {
       type: Array,
     }
   },
-  computed: {
+    computed: {
     dragOptions() {
       return {
         group: {
@@ -69,6 +58,7 @@ export default {
   },
 }
 </script>
+
 
 <style>
 .flip-list-move {
