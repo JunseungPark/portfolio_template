@@ -1,5 +1,6 @@
 <template>
 <b-card>
+  <b-row class="g-0">Price : {{caluPrice()}} 원</b-row>
   <b-card no-body class="overflow-hidden">
     <b-row class="g-0">
       <b-col>
@@ -7,20 +8,17 @@
             <draggable 
               :list="newLayouts" 
               group="people"
-              :clone="clone"
               item-key="id"
               :component-data="{
                 tag: 'ul',
                 type: 'transition-group',
                 name: !drag ? 'flip-list' : null
               }"
+              @change="onChange"
               style="min-height: 100vh"
               v-bind="dragOptions">
               <template #item="{element}">
-                <b-list-group-item class="border-0" v-if="(element.name == 'TestLayout')"><TestLayout/></b-list-group-item>
-                <b-list-group-item class="border-0" v-else-if="(element.name == 'TestHeader')"><TestHeader/></b-list-group-item>
-                <b-list-group-item class="border-0" v-else-if="(element.name == 'TestFooter')"><TestFooter/></b-list-group-item>
-                <b-list-group-item class="border-0" v-else>{{element.name}} </b-list-group-item>
+                <b-list-group-item class="border-0" :key="element.id"><component :key="element.id" :is="findCompoent(element.subject, element.name)"/></b-list-group-item>
               </template>
             </draggable>
         </b-list-group>
@@ -31,18 +29,14 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
 import draggable from 'vuedraggable'
-import TestLayout from '@/modules/base/components/Layouts/TestLayout.vue'
-import TestHeader from '@/modules/base/components/Headers/TestHeader.vue'
-import TestFooter from '@/modules/base/components/Footers/TestFooter.vue'
+import { filterComma } from '../../../util/util';
 
 export default {
   name: "NewLayout",
   components: {
         draggable,
-        TestLayout,
-        TestFooter,
-        TestHeader
   },
   props: {
     newLayouts: {
@@ -61,12 +55,30 @@ export default {
         animation: 200,
         ghostClass: "ghost"
       };
-    }
+    },
   },
   data() {
     return {
+      drag: false,
+      addedLayout: 'TestContent',
     }
   },
+  /// ------------------------- LIFE -------------------------///
+  /// ------------------------- LIFE -------------------------///
+  methods: {
+    findCompoent(subject, name){
+      return defineAsyncComponent(() =>import(`@/modules/base/components/${subject}/${name}.vue`));
+    },
+
+    caluPrice() {
+      var price = 0;
+      this.newLayouts.forEach(element => {
+        price += element.price;
+      });
+
+      return filterComma(price)
+    }
+  }
 }
 </script>
 

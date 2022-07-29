@@ -18,7 +18,6 @@ const routes = [
 ]
 
 const router = new createRouter({
-  base: '/portfolio_template/',
   history: createWebHistory(),
   routes,
 })

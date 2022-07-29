@@ -1,28 +1,29 @@
 <template>
-<b-card>
-  <b-card no-body class="overflow-hidden">
-    <b-row class="g-0">
-      <b-col class="h-auto">
-        <b-list-group  class="h-100">
-            <draggable 
-              :list="itemLayouts" 
-              group="people" 
-              itemKey="name"
-              :component-data="{
-                tag: 'ul',
-                type: 'transition-group',
-                name: !drag ? 'flip-list' : null
-              }"
-              v-bind="dragOptions">
-              <template #item="{element}">
-                <b-list-group-item >{{element.name}} </b-list-group-item>
-              </template>
-            </draggable>
-        </b-list-group>
-      </b-col>
-    </b-row>
+  <b-card>
+    <b-button class="mx-1 mb-2" variant="outline-secondary" @click="backTo()">Back</b-button>
+    <b-card no-body class="overflow-hidden">
+      <b-row class="g-0">
+        <b-col class="h-auto">
+          <b-list-group  class="h-100">
+              <draggable 
+                :list="itemLayouts" 
+                group="people" 
+                itemKey="name"
+                :component-data="{
+                  tag: 'ul',
+                  type: 'transition-group',
+                  name: !drag ? 'flip-list' : null
+                }"
+                v-bind="dragOptions">
+                <template #item="{element}">
+                  <b-list-group-item >{{element.name}} </b-list-group-item>
+                </template>
+              </draggable>
+          </b-list-group>
+        </b-col>
+      </b-row>
+    </b-card>
   </b-card>
-</b-card>
 </template>
 
 <script>
@@ -38,7 +39,7 @@ export default {
       type: Array,
     }
   },
-    computed: {
+  computed: {
     dragOptions() {
       return {
         group: {
@@ -54,8 +55,15 @@ export default {
   },
   data() {
     return {
+      drag: false,
     }
   },
+
+  methods: {
+    backTo() {
+      this.$emit('backTo')
+    }
+  }
 }
 </script>
 

@@ -8,7 +8,7 @@ const routes = [
     
     children: [
       {
-        path: '',
+        path: '/',
         component: BaseView,
       },
     ],
