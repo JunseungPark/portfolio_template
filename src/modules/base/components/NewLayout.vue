@@ -18,7 +18,10 @@
               style="min-height: 100vh"
               v-bind="dragOptions">
               <template #item="{element}">
-                <b-list-group-item class="border-0" :key="element.id"><component :key="element.id" :is="findCompoent(element.subject, element.name)"/></b-list-group-item>
+                <b-list-group-item class="border-0 position-relative" :key="element.id">
+                  <b-button class="mx-1 position-absolute top-0 end-0" variant="outline-danger" @click="deleteLayout(element)">delete</b-button>
+                  <component :key="element.id" :is="findCompoent(element.subject, element.name)"/>
+                </b-list-group-item>
               </template>
             </draggable>
         </b-list-group>
@@ -60,7 +63,6 @@ export default {
   data() {
     return {
       drag: false,
-      addedLayout: 'TestContent',
     }
   },
   /// ------------------------- LIFE -------------------------///
@@ -77,6 +79,10 @@ export default {
       });
 
       return filterComma(price)
+    },
+
+    deleteLayout(element) {
+      this.$emit('deleteLayout', element)
     }
   }
 }

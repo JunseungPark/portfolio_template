@@ -1,7 +1,7 @@
 <template>
   <b-row class="g-0">
     <b-col xs="10" sm="10" md="10">
-      <NewLayout :newLayouts="newLayouts"/>
+      <NewLayout :newLayouts="newLayouts" @deleteLayout='deleteLayout'/>
     </b-col>
     <b-col xs="2" sm="2" md="2">
       <Transition name="fade">
@@ -67,16 +67,16 @@ export default {
     
     layoutsMapping(thema) {            
       switch(thema) {
-        case 'HEADER':
+        case 'Headers':
           this.selectedThemaLayouts = this.HeaderLayouts;
           break;
-        case 'CONTENTS':
+        case 'Contents':
           this.selectedThemaLayouts = this.ContentLayouts;
           break;
-        case 'FEATURES':
+        case 'Features':
           this.selectedThemaLayouts = this.FeatureLayouts;
           break;
-        case 'FOOTER':
+        case 'Footers':
           this.selectedThemaLayouts = this.FooterLayouts;
           break;
         default:
@@ -86,7 +86,32 @@ export default {
     },
     resetState() {
       this.isItemState = false;
-    }
+    },
+    deleteLayout(element) {
+      this.newLayouts.splice(this.newLayouts.indexOf(element), 1);
+      switch(element.subject) {
+        case 'Headers':
+          this.HeaderLayouts.push(element);
+          this.itemSort(this.HeaderLayouts)
+          break;
+        case 'Contents':
+          this.ContentLayouts.push(element);
+          this.itemSort(this.ContentLayouts)
+          break;
+        case 'Features':
+          this.FeatureLayouts.push(element);
+          this.itemSort(this.FeatureLayouts)
+          break;
+        case 'Footers':
+          this.FooterLayouts.push(element);
+          this.itemSort(this.FooterLayouts)
+      }
+    },
+    itemSort(array){
+      array.sort(function(a,b){
+        return a.id - b.id
+      });
+    },
   }
 }
 </script>
