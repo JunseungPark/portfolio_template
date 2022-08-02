@@ -1,6 +1,8 @@
 <template>
 <b-card>
-  <b-row class="g-0">Price : {{caluPrice()}} 원</b-row>
+  <b-row class="g-0">
+    Price : {{caluPrice()}} 원
+  </b-row>
   <b-card no-body class="overflow-hidden">
     <b-row class="g-0">
       <b-col>

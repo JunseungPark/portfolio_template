@@ -1,5 +1,10 @@
 <template>
   <b-row class="g-0">
+    <PreviewModal 
+      :isShowMoadal="isShowMoadal"
+      :newLayouts="newLayouts"
+      @hideModal='hideModal'>
+    </PreviewModal>
     <b-col xs="10" sm="10" md="10">
       <NewLayout :newLayouts="newLayouts" @deleteLayout='deleteLayout'/>
     </b-col>
@@ -18,16 +23,28 @@
 import NewLayout from '@/modules/base/components/NewLayout.vue'
 import ContentsList from '@/modules/base/components/ContentsList.vue'
 import ItemTap from '@/modules/base/components/ItemTap.vue'
+import PreviewModal from '@/modules/base/components/Modal/PreviewModal.vue'
 
 export default {
   name: "LayoutEditCard",
   components: {
       NewLayout,
       ContentsList,
-      ItemTap
+      ItemTap,
+      PreviewModal
   },
+  /// ------------------------- LIFE -------------------------///
+  created() {
+    this.emitter.on('publishPage', this.publishPage);
+  },
+  unmounted() {
+    this.emitter.off('publishPage');
+  },
+  /// ------------------------- LIFE -------------------------///
   data() {
     return {
+      isShowMoadal: false,
+      isOpenModal: false,
       isItemState: false,
       selectedThemaLayouts:[],
       newLayouts: [
@@ -112,6 +129,12 @@ export default {
         return a.id - b.id
       });
     },
+    publishPage() {
+      this.isShowMoadal = true;
+    },
+    hideModal() {
+      this.isShowMoadal = false;
+    }
   }
 }
 </script>
