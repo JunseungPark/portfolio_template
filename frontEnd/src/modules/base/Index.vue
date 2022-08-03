@@ -1,6 +1,8 @@
 <template>
-  <h1>Layout Edit</h1>
-  <router-view></router-view>
+  <div>
+    <h1>Layout Edit</h1>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
