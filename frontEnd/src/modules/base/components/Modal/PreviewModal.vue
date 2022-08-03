@@ -87,7 +87,7 @@ export default {
     testKakao() {
       // 파일 다운로드
       this.$refs.vue3SimpleHtml2pdf.download()
-      window.Kakao.init('30ca8ac7ac18029dcdb1861bc635121f'); // 사용할 앱의 JavaScript키를 입력해 주세요.
+      window.Kakao.init(process.env.VUE_APP_KAKAO_JS_KEY); // 사용할 앱의 JavaScript키를 입력해 주세요.
       window.Kakao.Channel.chat({
           channelPublicId: '_xlrQIxj' // 카카오톡 채널 홈 URL에 명시된 ID를 입력합니다.
       })
